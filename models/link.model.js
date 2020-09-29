@@ -15,7 +15,15 @@ module.exports = (sequelize, Sequelize) => {
         // to store short link created by our application
         shortLink: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
+        },
+        // since full link can be very large text we save md5sum
+        // which will be used for duplicate generation check
+        hash: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            unique: true
         },
         createdAt: {
             allowNull: false,

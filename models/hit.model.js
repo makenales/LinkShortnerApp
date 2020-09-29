@@ -21,11 +21,14 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        // coutry of the user who visited short link
-        country: {
+        // language of the user who visited short link
+        language: {
             type: Sequelize.STRING,
             allowNull: false
         },
+        // I was going to use https://www.npmjs.com/package/geoip-lite for getting
+        // country from ip. but its paid service so skipped it.
+        // I am now saving language of the user.
         createdAt: {
             allowNull: false,
             type: Sequelize.DATE
