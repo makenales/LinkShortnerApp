@@ -1,0 +1,11 @@
+{
+  "name": "linkshortnerapp",
+  "version": "1.0.0",
+  "description": "Simple app which take any Web URL and gives shorten url.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nilesh Makwana",
+  "license": "ISC"
+}
