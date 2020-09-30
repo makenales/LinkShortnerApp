@@ -5,12 +5,8 @@ class LinkService {
         return axios.post("/generate", data);
     }
 
-    get(id) {
-        return axios.get(`/tutorials/${id}`);
-    }
-
-    create(data) {
-        return axios.post("/tutorials", data);
+    getStats() {
+        return axios.get("/stats");
     }
 
 }

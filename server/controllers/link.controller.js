@@ -5,6 +5,7 @@ const Hit = db.hits;
 const Op = db.Sequelize.Op;
 var uuid = require("uuid4");
 var md5 = require('md5');
+const host = "http://localhost:8080/";
 
 // create short link and save in links table
 exports.generate = async (req, res) => {
@@ -16,7 +17,7 @@ exports.generate = async (req, res) => {
         // check if we already created short link for given link by finding md5sum
         let link = await Link.findOne({ where: { hash: hash } });
         if (link) {
-            res.json({ message: link.shortLink });
+            res.json({ link: host + link.shortLink });
         } else {
             //we are looping until we find code which was not generated before
             while (true) {
@@ -44,7 +45,7 @@ exports.generate = async (req, res) => {
                 }
             }
             // sending generated shorten url to user
-            res.json({ message: code });
+            res.json({ link: host + code });
         }
     }
 };

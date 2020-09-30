@@ -4,14 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
 import LinkGenerator from "./components/link-generator.component";
-//import Stats from "./components/stats.component";
-//import Redirector from "./components/redirector.component";
+import Stats from "./components/stats.component";
 
 function App() {
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/tutorials" className="navbar-brand">
+        <a href="/" className="navbar-brand">
           LinkShortner
           </a>
         <div className="navbar-nav mr-auto">
@@ -29,7 +28,8 @@ function App() {
       </nav>
       <div className="container mt-3">
         <Switch>
-          <Route exact path={["/", "/tutorials"]} component={LinkGenerator} />
+          <Route exact path={["/", "/generate"]} component={LinkGenerator} />
+          <Route exact path="/stats" component={Stats} />
         </Switch>
       </div>
     </div>

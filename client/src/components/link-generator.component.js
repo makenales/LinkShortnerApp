@@ -6,29 +6,40 @@ export default class LinkGenerator extends Component {
         super(props);
         this.state = {
             url: "",
+            shortUrl: "",
             isUrlChanged: false
         };
     }
+
     onChangeUrl(e) {
         this.setState({
-            url: e.target.value,
+            url: e.target.value.trim(),
             isUrlChanged: true
         });
     }
+
     generateShortLink() {
         // only generate url when its value is changed
-        if (this.state.isUrlChanged && this.state.url.trim() !== "") {
+        if (this.state.isUrlChanged && this.isUrl(this.state.url)) {
             let data = { link: this.state.url };
             this.setState({
                 isUrlChanged: false
             });
             LinkService.generateShortLink(data).then((res) => {
-                console.log(res);
+                this.setState({
+                    shortUrl: res.data.link
+                });
             }).catch((err) => {
-                console.log("An error occured while syncing with database. Please check values in dbConfig.json file.");
+                console.log("An error occured.");
             });
         }
     }
+
+    isUrl(s) {
+        var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+        return regexp.test(s);
+    }
+
     render() {
         return (
             <div>
@@ -55,6 +66,9 @@ export default class LinkGenerator extends Component {
                         </div>
                     </div>
                 </div>
+                { this.state.shortUrl !== "" && <h4>Here's your shortUrl</h4> }
+                { this.state.shortUrl !== "" && <a href={this.state.shortUrl}><span>{this.state.shortUrl}</span></a>}
             </div>);
     }
+
 }
