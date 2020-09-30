@@ -35,11 +35,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
-    Link.associate = function (models) {
-        Link.hasMany(models.Hit, {
-            foreignKey: "linkId",
-            as: "hits",
-        })
-    }
     return Link;
 };

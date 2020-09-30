@@ -19,4 +19,9 @@ db.sequelize = sequelize;
 db.links = require("./link.model.js")(sequelize, Sequelize);
 db.hits = require("./hit.model.js")(sequelize, Sequelize);
 
+db.links.hasMany(db.hits, {
+    foreignKey: "linkId",
+    as: "hits"
+});
+
 module.exports = db;

@@ -71,11 +71,34 @@ exports.redirect = async (req, res) => {
 
 // create short link and save in links table
 exports.stats = async (req, res) => {
-    let links = await Link.findAll({ raw: true });
+    let links = await Link.findAll({
+        attributes: {
+            include: [[db.Sequelize.fn("COUNT", db.Sequelize.col("hits.id")), "hits"]]
+        },
+        include: [{
+            model: Hit, attributes: [],
+            as: "hits"
+        }],
+        group: ['links.id'],
+        raw: true
+    });
     let stats = [];
     for (link of links) {
-        let hits = await Hit.count({ where: { linkId: link.id } });
-        link['hits'] = hits;
+        // get the top languages of users in desc order for each link
+        let hits = await Hit.findAll({
+            attributes: {
+                include: ["language", [db.Sequelize.fn("COUNT", db.Sequelize.col("language")), "count"]]
+            },
+            where: { linkId: link.id },
+            group: ["language"],
+            order: [[db.Sequelize.col("count"), "DESC"]]
+        });
+        let languages = [];
+        hits.forEach((h, i) => {
+            languages.push(h.language);
+        });
+        link["shortLink"] = host + link["shortLink"];
+        link["languages"] = languages.join(",");
         stats.push(link);
     }
     res.json(stats);

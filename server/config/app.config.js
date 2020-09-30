@@ -1,3 +1,3 @@
 module.exports = {
-    EXPIRE: 2
+    EXPIRE: 30 * 24 * 60
 };
