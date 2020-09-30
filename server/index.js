@@ -20,10 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: req.headers["accept-language"] });
+    res.json({ message: "Hello from LinkShortner App." });
 });
 
-app.get('/:code', linkController.redirect);
+app.get("/:code", linkController.redirect);
 
 app.post("/api/generate", linkController.generate);
 
@@ -39,3 +39,5 @@ db.sequelize.sync({ force: false }).then(() => {
 }).catch((err) => {
     console.log("An error occured while syncing with database. Please check values in dbConfig.json file.");
 });
+
+module.exports = app;

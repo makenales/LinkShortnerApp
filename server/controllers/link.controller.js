@@ -97,9 +97,13 @@ exports.stats = async (req, res) => {
         hits.forEach((h, i) => {
             languages.push(h.language);
         });
-        link["shortLink"] = host + link["shortLink"];
-        link["languages"] = languages.join(",");
-        stats.push(link);
+        let item = {
+            fullLink: link.fullLink,
+            shortLink: host + link.shortLink,
+            hits: link.hits,
+            languages: languages.join(",")
+        };
+        stats.push(item);
     }
     res.json(stats);
 };
