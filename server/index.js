@@ -30,7 +30,7 @@ app.post("/api/generate", linkController.generate);
 app.get("/api/stats", linkController.stats);
 
 // sync database to create tables if does not exists already
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync().then(() => {
     // set port, listen for requests
     const PORT = process.env.PORT || 8080;
     app.listen(PORT, () => {
