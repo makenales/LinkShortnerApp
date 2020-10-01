@@ -8,3 +8,5 @@ Here are the instructions to test the application.
 6. Run "npm run build" command. This will install node libraries for both client and server applications.
 7. Run "npm start" command. This will start both server and client app. React app will be opened in new browser tab with URL http://localhost:3000.
 8. To run API tests use command "npm test".
+
+To test expiration change EXPIRE value in server/config/app.config.js to 10. Which will make new links to expire in 10 minutes.
